@@ -5,6 +5,7 @@
       <tr>
         <th>ID</th>
         <th>Title</th>
+        <th>Body</th>
         <th>User ID</th>
         <th>Created at</th>
         <th>Updated at</th>
@@ -14,6 +15,7 @@
       <tr>
         <td>{{$post->id}}</td>
         <td>{{$post->title}}</td>
+        <td>{{$post->body}}</td>
         <td>{{$post->user_id}}</td>
         <td>{{$post->created_at}}</td>
         <td>{{$post->update_at}}</td>

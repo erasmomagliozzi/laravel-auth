@@ -66,7 +66,7 @@ class PostController extends Controller
         return redirect()->back();
       }
 
-      return redirect()->route('admin.posts.show', ['post' => $newPost]);
+      return redirect()->route('admin.posts.show', $newPost->slug);
     }
 
     /**
@@ -89,7 +89,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+      $post = Post::where('slug', $slug)->get();
+      return view('admin.posts.edit', compact('post'));
     }
 
     /**

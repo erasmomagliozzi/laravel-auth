@@ -1,5 +1,9 @@
 @extends('layouts.app');
 @section('content')
+<a class="btn btn-primary" href="{{route('admin.posts.create')}}">
+  CREA UN NUOVO POST
+</a>
+
   <table class="table">
     <thead>
       <tr>
@@ -20,7 +24,7 @@
         <td>{{$post->created_at}}</td>
         <td>{{$post->update_at}}</td>
         <td><a class="btn btn-primary" href="{{route('admin.posts.show', $post->slug)}}">View</a></td>
-        <td><a class="btn btn-primary" href="#">Edit</a></td>
+        <td><a class="btn btn-primary" href="{{route('admin.posts.edit', $post->slug)}}">Edit</a></td>
         <td>
           <form action="{{route('admin.posts.destroy', $post->id)}}" method="post">
             @csrf
