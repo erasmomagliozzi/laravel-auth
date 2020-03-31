@@ -17,9 +17,10 @@ Route::get('/', function () {
     return view('guest.welcome');
 });
 
-Auth::routes();
 
 Route::get('/posts', 'PostController@index')->name('posts.index');
+Route::get('/posts/{slug}', 'PostController@show')->name('posts.show');
+Auth::routes();
 
 Route::name('admin.')->prefix('admin')
       ->namespace('Admin')

@@ -17,7 +17,7 @@ class PostController extends Controller
 
      $this->validateRules = [
        'title' => 'required|string|max:255',
-       'body' => 'required|string|max:255'
+       'body' => 'required|string'
      ];
    }
 
@@ -87,7 +87,7 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($slug)
     {
       $post = Post::where('slug', $slug)->get();
       return view('admin.posts.edit', compact('post'));
@@ -102,7 +102,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+      dd($request->all());
     }
 
     /**
