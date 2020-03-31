@@ -8,6 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+   private $user;
+   private $validateRules;
+
+   // public function __construct()
+   // {
+   //   $this->user = Auth::user();
+   //   $this->validateRules = [
+   //     'title' =>
+   //   ]
+   // }
+
     /**
      * Display a listing of the resource.
      *
@@ -47,9 +58,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($slug)
     {
-        //
+        $post = Post::where('slug', $slug)->get();
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -83,6 +95,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+      if(empty($post)){
+        abort(404);
+      }
+
+      $post->delete();
+      return redirect()->route('admin.posts.index');
     }
 }
