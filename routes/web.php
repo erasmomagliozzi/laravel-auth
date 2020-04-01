@@ -16,11 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('guest.welcome');
 });
-
-
-Route::get('/posts', 'PostController@index')->name('posts.index');
-Route::get('/posts/{slug}', 'PostController@show')->name('posts.show');
 Auth::routes();
+
+//rotte guest
+Route::get('/posts', 'PostController@index')->name('posts.index');
+Route::get('/show/{slug}', 'PostController@show')->name('posts.show');
+
+
+
 
 Route::name('admin.')->prefix('admin')
       ->namespace('Admin')
