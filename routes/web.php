@@ -21,6 +21,7 @@ Auth::routes();
 //rotte guest
 Route::get('/posts', 'PostController@index')->name('posts.index');
 Route::get('/show/{slug}', 'PostController@show')->name('posts.show');
+Route::get('/create', 'PostController@create')->name('posts.create');
 
 
 

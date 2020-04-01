@@ -15,7 +15,7 @@ class CommentsTableSeeder extends Seeder
 
       public function run(Faker $faker)
       {
-        for ($i=0; $i < 10; $i++) {
+        for ($i=0; $i < 20; $i++) {
           $newComment = new Comment;
           $newComment->name = $faker->name;
           $newComment->body = $faker->text(255);
