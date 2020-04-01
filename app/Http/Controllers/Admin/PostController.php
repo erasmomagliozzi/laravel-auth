@@ -77,7 +77,7 @@ class PostController extends Controller
      */
     public function show($slug)
     {
-        $post = Post::where('slug', $slug)->get();
+        $post = Post::where('slug', $slug)->first();
         return view('admin.posts.show', compact('post'));
     }
 
@@ -89,7 +89,7 @@ class PostController extends Controller
      */
     public function edit($slug)
     {
-      $post = Post::where('slug', $slug)->get();
+      $post = Post::where('slug', $slug)->first();
       return view('admin.posts.edit', compact('post'));
     }
 
