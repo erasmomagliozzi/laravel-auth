@@ -23,7 +23,6 @@
     </tbody>
   </table>
   <div class="comments">
-    <a href="btn btn-primary" href="">New Comment</a>
     @forelse ($post->comments as $comment)
       <ul>
         <li>{{$comment->name}}</li>
@@ -34,5 +33,28 @@
     <h2>nessun commnet</h2>
 
     @endforelse
+
+    <div class="">
+      <form action="{{route('comment.store')}}" method="post">
+        @csrf
+        @method('POST')
+        <label for="name">Nome</label>
+        <div class="form-group">
+          <input type="text" name="name">
+
+        </div>
+        <label for="body">Body</label>
+        <div class="form-group">
+          <textarea name="body" rows="8" cols="80">
+
+          </textarea>
+        </div>
+
+        <input type="hidden" name="post_id" value="{{$post->id}}">
+
+        <button class="btn btn-success"type="submit" name="button">Salva</button>
+
+      </form>
+    </div>
   </div>
 @endsection
