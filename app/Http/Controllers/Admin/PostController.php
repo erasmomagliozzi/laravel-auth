@@ -6,6 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Admin\Carbon;
 
 class PostController extends Controller
 {
@@ -100,11 +101,36 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
-    {
-      dd($request->all());
-    }
 
+      public function update(Request $request, Post $post)
+     {
+         $idUser = Auth::user()->id;
+
+         if (empty($post)) {
+             abort('404');
+         }
+
+         if ($post->user->id != $idUser) {
+             abort('404');
+         }
+
+         $request->validate($this->validateRules);
+         $data = $request->all();
+
+         $post->title = $data['title'];
+         $post->body = $data['body'];
+         $post->user_id = $idUser;
+         $post->slug = Str::finish(Str::slug($post->title), rand(1, 1000000));
+         $post->updated_at = Carbon::now();
+
+         $updated = $post->update();
+
+         if (!$updated) {
+             return redirect()->back();
+         }
+
+         return redirect()->route('admin.posts.show', $post->slug);
+     }
     /**
      * Remove the specified resource from storage.
      *
@@ -116,6 +142,7 @@ class PostController extends Controller
       if(empty($post)){
         abort(404);
       }
+      $post->comments()->delete();
 
       $post->delete();
       return redirect()->route('admin.posts.index');
