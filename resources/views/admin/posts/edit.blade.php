@@ -15,6 +15,12 @@
       </textarea>
     </div>
 
+    <label for="title">Tags</label>
+    <div class="form-group">
+      <input type="checkbox" name="tags" value="{{$post->title}}">
+
+    </div>
+
 
     <input type="hidden" name="user_id" value="{{Auth::id()}}">
     <button class="btn btn-success"type="submit" name="button">Salva</button>

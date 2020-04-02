@@ -62,12 +62,15 @@ class PostController extends Controller
       $newPost->title = $data['title'];
       $newPost->body = $data['body'];
       $newPost->user_id = $idUser;
-      $newPost->slag = Str::finish(Str::slug($newPost->title), rand(1, 1000));
+      $newPost->slug = Str::finish(Str::slug($newPost->title), rand(1, 1000));
 
       $saved = $newPost->save();
       if(!$saved) {
         return redirect()->back();
       }
+
+      $tags = $data['tags'];
+      $newPost->tags()->attach($tags);
 
       return redirect()->route('admin.posts.show', $newPost->slug);
     }
@@ -145,6 +148,7 @@ class PostController extends Controller
         abort(404);
       }
       $post->comments()->delete();
+      $post->tags()->detach();
 
       $post->delete();
       return redirect()->route('admin.posts.index');
