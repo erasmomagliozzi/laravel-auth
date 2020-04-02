@@ -22,6 +22,7 @@
       </tr>
     </tbody>
   </table>
+  <img src="{{asset('storage/' . $post->img)}}" alt="">
 
   <h3>Tags</h3>
     @foreach ($post->tags as $tag)

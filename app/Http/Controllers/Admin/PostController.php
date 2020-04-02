@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Admin\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -57,10 +58,12 @@ class PostController extends Controller
       $idUser = Auth::user()->id;
       $request->validate($this->validateRules);
       $data = $request->all();
+      $path = Storage::disk('public')->put('img', $data['img']);
 
       $newPost = new Post;
       $newPost->title = $data['title'];
       $newPost->body = $data['body'];
+      $newPost->img = $path;
       $newPost->user_id = $idUser;
       $newPost->slug = Str::finish(Str::slug($newPost->title), rand(1, 1000));
 
@@ -96,7 +99,12 @@ class PostController extends Controller
     public function edit($slug)
     {
       $post = Post::where('slug', $slug)->first();
-      return view('admin.posts.edit', compact('post'));
+      $tags = Tag::all();
+      $data = [
+        'tags' => $tags,
+        'post' => $post
+      ];
+      return view('admin.posts.edit', $data);
     }
 
     /**

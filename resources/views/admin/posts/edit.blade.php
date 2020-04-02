@@ -17,7 +17,13 @@
 
     <label for="title">Tags</label>
     <div class="form-group">
-      <input type="checkbox" name="tags" value="{{$post->title}}">
+      @foreach ($tags as $tag)
+      <div class="">
+        <span>{{$tag->name}}</span>
+
+        <input type="checkbox" name="tags[]" value="{{$tag->id}} {{($post->tags->contains($tag->id)) ? 'checked' : ''}}">
+      </div>
+      @endforeach
 
     </div>
 
