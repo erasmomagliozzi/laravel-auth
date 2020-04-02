@@ -20,4 +20,14 @@
     <button class="btn btn-success"type="submit" name="button">Salva</button>
 
   </form>
+
+  <div class="form-group">
+    <label for="tags">Tags</label>
+    @foreach ($tags as $tag)
+     <div>
+        <span>{{$tag->name}}</span>
+        <input type="checkbox" name="tags[]" value="{{$tag->id}}">
+     </div>
+     @endforeach
+  </div>
 @endsection
